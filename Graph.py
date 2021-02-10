@@ -71,21 +71,21 @@ def search():
 
     while queue and Rqueue:
 
-        print(queue)
-        print(Rqueue)
-        print("-------------------")
-        print(previous)
-        print(Rprevious)
-        print("**********************")
-        print(visited)
-        print(Rvisited)
-        print("======================")
+        #print(queue)
+        #print(Rqueue)
+        #print("-------------------")
+        #print(previous)
+        #print(Rprevious)
+        #print("**********************")
+        #print(visited)
+        #print(Rvisited)
+        #print("======================")
 
         current = queue.pop(0)
         neighbors = list(Graph.adj[current])
-        print(neighbors)
+
         for x in range(len(neighbors)):
-            print(x)
+
             node = neighbors[x]
             if not visited[x]:
                 queue.append(node)
@@ -94,9 +94,9 @@ def search():
 
         Rcurrent = Rqueue.pop(0)
         Rneighbors = list(Graph.adj[Rcurrent])
-        print(Rneighbors)
+
         for x in range(len(Rneighbors)):
-            print(x)
+
             Rnode = Rneighbors[x]
             if not Rvisited[x]:
                 Rqueue.append(Rnode)
@@ -113,33 +113,30 @@ def search():
 
 
 def printFinal(intersec):
-
     final = []
     final.append(intersec)
-    print(intersec)
+
     q = intersec
     while q is not startNode:
-        final.append(previous[q])
-        q = previous[q]
+        final.append(previous[q-1])
+        q = previous[q-1]
 
-    print(final)
     final.reverse()
-    print(final)
     q = intersec
 
     while q is not endNode:
-        final.append(Rprevious[q])
-        q = Rprevious[q]
+        final.append(Rprevious[q-1])
+        q = Rprevious[q-1]
 
     final = list(map(str, final))
     print(final)
 
 
 def check():
-    for x in range(len(Graph.nodes)):
+    for x in range(10):
         if (visited[x] and Rvisited[x]):
 
-            return x
+            return x + 1
     return -1
 
 
