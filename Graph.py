@@ -7,23 +7,22 @@ Graph = net.Graph()
 
 
 
-Graph.add_edge(1, 3)
-Graph.add_edge(1, 2)
-Graph.add_edge(2, 4)
-Graph.add_edge(2, 6)
+Graph.add_edge(1, 8)
+Graph.add_edge(1, 4)
+Graph.add_edge(2, 10)
 Graph.add_edge(3, 4)
-Graph.add_edge(4, 5)
+Graph.add_edge(4, 2)
 Graph.add_edge(5, 6)
-Graph.add_edge(1, 7)
+Graph.add_edge(1, 9)
 Graph.add_edge(8, 6)
 Graph.add_edge(4, 6)
 Graph.add_edge(7, 9)
 Graph.add_edge(3, 8)
-Graph.add_edge(6, 9)
+Graph.add_edge(10, 6)
 Graph.add_node(10)
 
 
-pos = {1: (-0.5, 0.2), 2: (0, 0.1), 3: (-1, 0.7), 4: (2, 0.3), 5: (4, 0.4), 6: (5, 0.2), 7: (5.5, 0.55), 8: (7.6, 0.7),
+pos = {1: (-0.5, 0.3), 2: (0, 0.1), 3: (-1, 0.7), 4: (1.7, 0.5), 5: (4, 0.5), 6: (4.5, 0.3), 7: (5.5, 0.55), 8: (7.6, 0.7),
        9: (8, 0.2), 10: (9, 0.3)}
 
 options = {
@@ -43,8 +42,8 @@ plot.axis("off")
 plot.show()
 
 
-startNode = 4
-endNode = 7
+startNode = 7
+endNode = 8
 
 queue = list()
 queue.append(startNode)
@@ -71,23 +70,12 @@ def search():
 
     while queue and Rqueue:
 
-        #print(queue)
-        #print(Rqueue)
-        #print("-------------------")
-        #print(previous)
-        #print(Rprevious)
-        #print("**********************")
-        #print(visited)
-        #print(Rvisited)
-        #print("======================")
-
         current = queue.pop(0)
         neighbors = list(Graph.adj[current])
 
         for x in range(len(neighbors)):
-
             node = neighbors[x]
-            if not visited[x]:
+            if not visited[node-1]:
                 queue.append(node)
                 visited[node-1] = True
                 previous[node-1] = current
@@ -96,9 +84,8 @@ def search():
         Rneighbors = list(Graph.adj[Rcurrent])
 
         for x in range(len(Rneighbors)):
-
             Rnode = Rneighbors[x]
-            if not Rvisited[x]:
+            if not Rvisited[Rnode-1]:
                 Rqueue.append(Rnode)
                 Rvisited[Rnode-1] = True
                 Rprevious[Rnode-1] = Rcurrent
@@ -106,8 +93,8 @@ def search():
         inter = check()
 
         if inter != -1:
-            print(f"Intersection between {startNode} and {endNode}")
-            print("Intersected at " + str(inter))
+            print(f"A connection between {startNode} and {endNode} does exist")
+            print("The path you can follow is:")
             printFinal(inter)
             exit(0)
 
